@@ -1,0 +1,1195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>$WAVY — The Wavy Society</title>
+<meta name="description" content="$WAVY is a community utility token on Base. Holders unlock private marketplaces and a life-operations system that turns real money goals into one confirmed action.">
+<link rel="icon" href="coin.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F9F6EC; --paper2:#FFFDF7;
+    --navy:#101A3A; --navy-deep:#0A1230;
+    --muted:#6F6C5E;
+    --accent:#C96045; --accent-hi:#E8907C; --accent-deep:#A85A44;
+    --line:rgba(16,26,58,.25); --line-soft:rgba(16,26,58,.12);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Jost',system-ui,sans-serif; font-weight:300;
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E"),
+      repeating-linear-gradient(0deg, rgba(255,255,255,.5) 0 1px, transparent 1px 4px),
+      repeating-linear-gradient(90deg, rgba(16,26,58,.035) 0 1px, transparent 1px 4px),
+      repeating-linear-gradient(90deg, rgba(16,26,58,.055) 0 1px, transparent 1px 18px),
+      radial-gradient(1200px 600px at 50% -10%, rgba(232,144,124,.14), transparent 60%),
+      var(--paper);
+    color:var(--navy); line-height:1.65; letter-spacing:.01em;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1060px;margin:0 auto;padding:0 28px}
+  h1,h2,.serif{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1.12;letter-spacing:.005em}
+  section{padding:88px 0;border-top:1px solid var(--line-soft)}
+  .kicker{
+    font-size:12px;letter-spacing:.42em;text-transform:uppercase;
+    color:var(--accent-deep);margin-bottom:22px;font-weight:600;
+  }
+  h2{font-size:clamp(34px,5.4vw,54px);margin-bottom:16px;color:var(--navy-deep)}
+  h2 em{font-style:italic;color:var(--accent)}
+  .sub{color:var(--muted);font-size:17.5px;max-width:640px;margin-bottom:8px}
+  .rule{display:flex;align-items:center;gap:16px;margin:34px auto;max-width:420px;color:var(--accent-deep)}
+  .rule::before,.rule::after{content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,var(--line),transparent)}
+  .rule span{font-size:11px;letter-spacing:.3em}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;overflow:hidden;border-top:none;padding:110px 0 100px;text-align:center}
+  .compass{position:absolute;top:50%;left:50%;width:min(880px,140vw);transform:translate(-50%,-50%);color:var(--accent);opacity:.12;pointer-events:none}
+  .hero .eyebrow{font-size:12px;letter-spacing:.42em;text-transform:uppercase;color:var(--accent-deep);margin-bottom:30px;font-weight:600}
+  .porthole{
+    width:172px;height:172px;margin:0 auto 34px;border-radius:50%;
+    border:2px solid var(--accent-deep);
+    box-shadow:0 0 0 8px rgba(168,90,68,.12), 0 18px 50px rgba(16,26,58,.18), inset 0 0 24px rgba(0,0,0,.25);
+    overflow:hidden;background:var(--navy-deep);
+  }
+  .porthole img{width:100%;height:100%;object-fit:cover;display:block}
+  .hero h1{font-size:clamp(52px,9vw,104px);margin-bottom:20px;color:var(--navy-deep)}
+  .hero h1 em{font-style:italic;background:linear-gradient(100deg,var(--accent-hi),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero .sub{margin:0 auto 40px;font-size:19px}
+  .ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .btn{
+    display:inline-block;padding:15px 38px;border-radius:999px;text-decoration:none;
+    font-family:'Jost',sans-serif;font-weight:500;font-size:13.5px;letter-spacing:.24em;text-transform:uppercase;
+    transition:all .25s ease;cursor:pointer;
+  }
+  .btn-primary{background:linear-gradient(120deg,var(--accent-hi),var(--accent));color:#FFF9F2;border:1px solid var(--accent)}
+  .btn-primary:hover{box-shadow:0 6px 28px rgba(201,96,69,.4);transform:translateY(-1px)}
+  .btn-ghost{border:1px solid var(--line);color:var(--navy);background:transparent}
+  .btn-ghost:hover{border-color:var(--accent-deep);color:var(--accent-deep)}
+
+  /* ---------- cards / grid ---------- */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px}
+  .card{
+    background:var(--paper2);
+    border:1px solid var(--line-soft);border-radius:6px;padding:36px 30px;
+    box-shadow:0 4px 18px rgba(16,26,58,.06);
+    transition:border-color .3s, transform .3s, box-shadow .3s;
+  }
+  .card:hover{border-color:var(--line);transform:translateY(-3px);box-shadow:0 12px 32px rgba(16,26,58,.10)}
+  .card .numeral{font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--accent-deep);letter-spacing:.3em;margin-bottom:16px}
+  .card h3{font-family:'Cormorant Garamond',serif;font-size:25px;font-weight:600;margin-bottom:12px;color:var(--navy-deep)}
+  .card p{color:var(--muted);font-size:15.5px}
+  .steps{display:flex;flex-direction:column;gap:0;margin-top:44px;max-width:720px}
+  .step{display:flex;gap:26px;padding:30px 6px;border-top:1px solid var(--line-soft)}
+  .step:last-child{border-bottom:1px solid var(--line-soft)}
+  .step .n{flex:none;font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--accent-deep);width:64px;font-style:italic}
+  .step h3{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;margin-bottom:8px;color:var(--navy-deep)}
+  .step p{color:var(--muted);font-size:15.5px}
+
+  /* ---------- manifest (pre-launch checklist) ---------- */
+  .progress{max-width:640px;margin:34px 0 30px}
+  .progress .bar{height:2px;background:rgba(168,90,68,.18);overflow:hidden}
+  .progress .fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent-deep),var(--accent-hi));transition:width .5s ease}
+  .progress p{margin-top:12px;color:var(--muted);font-size:13px;letter-spacing:.28em;text-transform:uppercase}
+  .checklist{display:flex;flex-direction:column;max-width:680px;border-top:1px solid var(--line-soft)}
+  .check{display:flex;align-items:center;gap:22px;padding:24px 6px;border-bottom:1px solid var(--line-soft);transition:background .25s}
+  .check .numeral{flex:none;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:var(--accent-deep);width:44px}
+  .check .box{flex:none;width:26px;height:26px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:14px;color:transparent;transition:all .3s;background:var(--paper2)}
+  .check.done .box{background:var(--accent);border-color:var(--accent);color:#FFF9F2}
+  .check .txt{flex:1;min-width:0}
+  .check .txt h3{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;margin-bottom:2px;color:var(--navy-deep)}
+  .check .txt p{color:var(--muted);font-size:14.5px}
+  .check .go{
+    flex:none;padding:11px 28px;border-radius:999px;background:transparent;
+    border:1px solid var(--accent-deep);color:var(--accent-deep);font-family:'Jost',sans-serif;font-weight:500;
+    font-size:12px;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;white-space:nowrap;transition:all .25s;
+  }
+  .check .go:hover{background:var(--accent-deep);color:#FFF9F2}
+  .check.done .go{display:none}
+  #step-wallet.done .go{display:inline-block}
+  .check .walletrow{display:flex;gap:10px;margin-top:12px}
+  .check input{
+    flex:1;min-width:0;background:var(--paper2);border:1px solid var(--line-soft);border-radius:4px;
+    color:var(--navy);padding:11px 14px;font-family:'Jost',sans-serif;font-size:14px;letter-spacing:.04em;
+  }
+  .check input:focus{outline:none;border-color:var(--accent-deep)}
+
+  /* ---------- certificate ---------- */
+  #crew-card{display:none;max-width:620px;margin:56px auto 0;text-align:center}
+  #crew-card.show{display:block;animation:rise .7s ease}
+  @keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+  .ticket{
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E"),
+      linear-gradient(165deg,#131E42 0%,#0A1230 70%);
+    color:#F3EDE0;border-radius:4px;padding:56px 44px;position:relative;
+    border:1px solid #A85A44;
+    box-shadow:inset 0 0 0 7px #0E1738, inset 0 0 0 8px rgba(232,144,124,.55), 0 24px 70px rgba(10,18,48,.35), 0 0 60px rgba(201,96,69,.12);
+  }
+  .ticket .seal{
+    width:88px;height:88px;margin:0 auto 22px;border-radius:50%;overflow:hidden;
+    border:2px solid var(--accent-hi);box-shadow:0 0 0 4px rgba(232,144,124,.2);background:var(--navy-deep);
+  }
+  .ticket .seal img{width:100%;height:100%;object-fit:cover;display:block}
+  .ticket .eyebrow{font-size:11px;letter-spacing:.44em;color:var(--accent-hi);font-weight:600;margin-bottom:14px}
+  .ticket h3{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;margin-bottom:18px;color:#F3EDE0}
+  .ticket .certifies{font-size:14.5px;color:rgba(243,237,224,.65);font-style:italic;margin-bottom:6px}
+  .ticket .superlative{
+    font-family:'Cormorant Garamond',serif;font-size:clamp(38px,7vw,58px);font-weight:700;font-style:italic;
+    margin:8px 0 4px;line-height:1.05;
+    background:linear-gradient(100deg,#F9C4B2,var(--accent-hi));-webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .ticket .walletline{font-size:14px;color:rgba(243,237,224,.7);letter-spacing:.08em;margin-top:10px}
+  .ticket .code{
+    margin-top:20px;display:inline-block;border-top:1px solid rgba(232,144,124,.5);border-bottom:1px solid rgba(232,144,124,.5);
+    padding:10px 26px;font-size:12px;letter-spacing:.32em;color:var(--accent-hi);font-weight:500;
+  }
+  .card-ctas{margin-top:28px}
+
+  /* ---------- registry marquee ---------- */
+  .marquee{
+    overflow:hidden;width:100vw;margin-left:calc(50% - 50vw);
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+    padding:12px 0 8px;margin-top:40px;
+  }
+  .mtrack{display:flex;gap:22px;width:max-content;animation:sail 42s linear infinite;padding-right:22px}
+  .marquee:hover .mtrack{animation-play-state:paused}
+  @keyframes sail{to{transform:translateX(-50%)}}
+  .mcert{
+    flex:none;width:248px;text-align:center;border-radius:4px;padding:24px 18px;
+    background:linear-gradient(165deg,#131E42,#0A1230);color:#F3EDE0;
+    border:1px solid rgba(232,144,124,.5);
+    box-shadow:inset 0 0 0 4px #0E1738, inset 0 0 0 5px rgba(232,144,124,.4), 0 10px 28px rgba(10,18,48,.25);
+  }
+  .mcert .seal{width:46px;height:46px;margin:0 auto 12px;border-radius:50%;overflow:hidden;border:2px solid var(--accent-hi);background:var(--navy-deep)}
+  .mcert .seal img{width:100%;height:100%;object-fit:cover;display:block}
+  .mcert .sname{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:700;font-size:23px;line-height:1.15;margin-bottom:6px;color:#F3EDE0}
+  .mcert .sw{font-size:11.5px;letter-spacing:.08em;color:rgba(243,237,224,.65)}
+  .mcert .sc{margin-top:10px;font-size:10px;letter-spacing:.28em;color:var(--accent-hi);font-weight:500}
+  @media (prefers-reduced-motion: reduce){.mtrack{animation:none}}
+
+  /* ---------- ship's store ---------- */
+  .store-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:44px}
+  .product{background:var(--paper2);border:1px solid var(--line-soft);border-radius:6px;padding:32px 26px;text-align:center;box-shadow:0 4px 18px rgba(16,26,58,.06);transition:transform .3s,box-shadow .3s,border-color .3s;display:flex;flex-direction:column}
+  .product:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(16,26,58,.12);border-color:var(--line)}
+  .product .picon{width:74px;height:74px;margin:0 auto 18px;border-radius:50%;border:1px solid var(--accent-deep);color:var(--accent-deep);display:flex;align-items:center;justify-content:center;background:rgba(201,96,69,.06)}
+  .product .picon svg{width:38px;height:38px}
+  .product h3{font-family:'Cormorant Garamond',serif;font-size:23px;font-weight:600;color:var(--navy-deep);margin-bottom:8px}
+  .product p{color:var(--muted);font-size:14.5px;flex:1}
+  .product .price{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--navy-deep);margin:14px 0 4px}
+  .product .price span{font-family:'Jost',sans-serif;font-size:12px;color:var(--muted);letter-spacing:.2em}
+  .product .reserve{margin-top:14px;padding:12px 20px;border-radius:999px;border:1px solid var(--accent-deep);background:transparent;color:var(--accent-deep);font-family:'Jost',sans-serif;font-weight:500;font-size:12px;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;transition:all .25s}
+  .product .reserve:hover{background:var(--accent-deep);color:#FFF9F2}
+  .presale-note{margin-top:22px;color:var(--muted);font-size:14px;font-style:italic}
+  /* ---------- ship's locker ---------- */
+  .locker-list{margin-top:36px;max-width:720px;display:flex;flex-direction:column;gap:16px}
+  .order{background:var(--paper2);border:1px solid var(--line-soft);border-radius:6px;padding:24px 28px;box-shadow:0 4px 16px rgba(16,26,58,.05)}
+  .order .ohead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+  .order .oid{font-size:13px;letter-spacing:.24em;color:var(--accent-deep);font-weight:600}
+  .order .ostatus{font-size:11px;letter-spacing:.22em;text-transform:uppercase;border:1px solid var(--line);border-radius:999px;padding:5px 14px;color:var(--muted)}
+  .order .oitems{font-size:15px;color:var(--navy);line-height:1.9}
+  .order .oitems .gift-tag{display:inline-block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-deep);border:1px dashed var(--accent-deep);border-radius:4px;padding:2px 8px;margin-left:8px;white-space:nowrap}
+  .order .ofoot{margin-top:10px;font-size:13.5px;color:var(--muted)}
+  .locker-empty{margin-top:36px;max-width:720px;border:1px dashed var(--line);border-radius:6px;padding:40px 32px;text-align:center;color:var(--muted);font-size:15.5px}
+  .locker-empty .serif{font-size:24px;color:var(--navy-deep);display:block;margin-bottom:8px;font-style:italic;font-family:'Cormorant Garamond',serif}
+  /* ---------- reserve modal ---------- */
+  .rrow{margin-bottom:16px;text-align:left}
+  .rrow label{display:block;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;font-weight:500}
+  .rrow input,.rrow select{width:100%;background:#fff;border:1px solid var(--line-soft);border-radius:4px;color:var(--navy);padding:12px 14px;font-family:'Jost',sans-serif;font-size:15px}
+  .rrow input:focus,.rrow select:focus{outline:none;border-color:var(--accent-deep)}
+  .rrow .checkline{display:flex;align-items:center;gap:10px;font-size:15px;color:var(--navy);text-transform:none;letter-spacing:0;font-weight:400}
+  .rrow .checkline input{width:auto}
+  .receipt-big{font-family:'Cormorant Garamond',serif;font-size:34px;color:var(--navy-deep);margin:10px 0 4px;letter-spacing:.06em}
+  @media(max-width:900px){.store-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.store-grid{grid-template-columns:1fr}}
+
+  /* ---------- founder's wall ---------- */
+  .engrave-form{max-width:640px;margin-top:36px;background:var(--paper2);border:1px solid var(--line-soft);border-radius:6px;padding:32px;box-shadow:0 4px 18px rgba(16,26,58,.06)}
+  .frow{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .wall-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
+  .plaque{position:relative;border-radius:4px;padding:30px 22px 24px;text-align:center;background:linear-gradient(165deg,#16204a 0%,#0b1230 70%);border:1px solid rgba(216,178,92,.55);box-shadow:inset 0 0 0 5px #0e1738, inset 0 0 0 6px rgba(216,178,92,.35), 0 10px 26px rgba(10,18,48,.25);animation:rise .6s ease}
+  .plaque .rivets{position:absolute;inset:12px;pointer-events:none;background-image:radial-gradient(circle,#e3bd6a 2.5px,#6e5620 3.5px,transparent 4.5px),radial-gradient(circle,#e3bd6a 2.5px,#6e5620 3.5px,transparent 4.5px),radial-gradient(circle,#e3bd6a 2.5px,#6e5620 3.5px,transparent 4.5px),radial-gradient(circle,#e3bd6a 2.5px,#6e5620 3.5px,transparent 4.5px);background-repeat:no-repeat;background-size:14px 14px;background-position:0 0,100% 0,0 100%,100% 100%}
+  .plaque .pname{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:#ece0c2;letter-spacing:.08em;text-shadow:0 -1px 0 rgba(0,0,0,.9),0 1px 0 rgba(255,255,255,.12);margin-bottom:8px}
+  .plaque .pcode{font-size:11px;letter-spacing:.3em;color:rgba(232,144,124,.9);margin-bottom:6px}
+  .plaque .pkind{font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:rgba(236,224,194,.5)}
+  #engrave-done{margin-top:16px;font-size:14.5px;color:var(--accent-deep);font-weight:500}
+  @media(max-width:900px){.wall-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:600px){.frow{grid-template-columns:1fr}.wall-grid{grid-template-columns:1fr}}
+
+  /* ---------- presale explainer ---------- */
+  .presale-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:38px 0 6px}
+  .presale-steps .step{border:1px solid var(--line-soft);border-radius:6px;padding:24px;background:var(--paper2);gap:18px}
+  .presale-steps .step .n{width:44px}
+  @media(max-width:760px){.presale-steps{grid-template-columns:1fr}}
+  /* ---------- crypto checkout ---------- */
+  .payline{display:flex;align-items:center;gap:10px;font-size:15px;color:var(--navy);margin-bottom:8px;cursor:pointer}
+  .payline input{width:auto;accent-color:var(--accent-deep)}
+  .crypto-box{border:1px dashed var(--line);border-radius:6px;padding:20px;background:rgba(201,96,69,.05);margin-bottom:16px}
+  .crypto-box p{font-size:14.5px;color:var(--navy);margin-bottom:12px}
+  .crypto-box .fine{font-size:13px;color:var(--muted);margin:12px 0 0}
+  .addr-row{display:flex;gap:10px;align-items:stretch}
+  .addr-row code{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:#fff;border:1px solid var(--line-soft);border-radius:4px;padding:10px 12px;font-size:12.5px;color:var(--navy);align-self:center}
+  .addr-row button{flex:none;padding:10px 18px;border-radius:999px;border:1px solid var(--accent-deep);background:transparent;color:var(--accent-deep);font-family:'Jost',sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
+  .addr-row button:hover{background:var(--accent-deep);color:#FFF9F2}
+
+  /* ---------- particulars / facts ---------- */
+  .facts{margin-top:44px;max-width:720px;border-top:1px solid var(--line-soft)}
+  .fact{display:flex;justify-content:space-between;gap:24px;padding:18px 6px;border-bottom:1px solid var(--line-soft);font-size:16px}
+  .fact .k{color:var(--muted);letter-spacing:.14em;text-transform:uppercase;font-size:13px;padding-top:3px}
+  .fact .v{text-align:right;font-weight:400;color:var(--navy-deep)}
+  .warn{
+    margin-top:44px;max-width:720px;border:1px solid var(--line);border-radius:6px;
+    padding:32px 34px;background:rgba(201,96,69,.07);
+  }
+  .warn h3{font-family:'Cormorant Garamond',serif;font-size:23px;margin-bottom:10px;color:var(--accent-deep)}
+  .warn p{color:var(--muted);font-size:15.5px}
+  footer{padding:60px 0 70px;text-align:center;color:var(--muted);font-size:14px}
+  footer .sig{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:21px;color:var(--accent-deep);margin-bottom:10px}
+  footer .fine{opacity:.75;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;margin-top:8px}
+  footer .trustnote{max-width:42rem;margin:0 auto 14px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16.5px;color:var(--muted)}
+  footer .trustnav{margin-bottom:16px}
+  footer .trustnav a{color:var(--muted);text-decoration:none;font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+  footer .trustnav a:hover{color:var(--accent)}
+
+  .btn:disabled{opacity:.6;cursor:wait}
+
+  /* ---------- harbor pass modal ---------- */
+  .nft-modal{position:fixed;inset:0;background:rgba(10,18,48,.74);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:60;padding:24px}
+  .nft-modal.open{display:flex;animation:rise .35s ease}
+  .nft-frame{background:var(--paper);border:1px solid var(--line);border-radius:8px;max-width:560px;width:100%;padding:28px;text-align:center;position:relative;box-shadow:0 30px 90px rgba(0,0,0,.4);max-height:92vh;overflow:auto}
+  .nft-frame img{width:100%;border-radius:4px;border:1px solid var(--line-soft);margin-bottom:20px;background:var(--navy-deep)}
+  .nft-rarity{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent-deep);font-weight:600;margin-bottom:14px}
+  .nft-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+  .nft-note{font-size:13.5px;color:var(--muted);max-width:440px;margin:0 auto}
+  .nft-close{position:absolute;top:8px;right:14px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted);font-family:inherit}
+  .nft-close:hover{color:var(--navy)}
+
+  @media(max-width:720px){
+    .grid{grid-template-columns:1fr}
+    section{padding:64px 0}
+    .hero{padding:80px 0 70px}
+    .check{flex-wrap:wrap}
+    .check .go{margin-left:66px}
+    .fact{flex-direction:column;gap:4px}
+    .fact .v{text-align:left}
+  }
+
+  /* ---------- slickness kit (no backend): motion, status, wallet ---------- */
+  [hidden]{display:none !important;}
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  .ticker{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--paper2);white-space:nowrap}
+  .ticker-track{display:inline-flex;width:max-content;animation:sail 40s linear infinite;padding:11px 0}
+  .ticker-track span{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;color:var(--muted);padding:0 26px}
+  .ticker-track b{color:var(--accent-deep);font-style:normal}
+  [data-tilt]{transform-style:preserve-3d;will-change:transform;transition:transform .18s ease-out}
+  .ticket{position:relative;overflow:hidden}
+  .tilt-glare{position:absolute;inset:0;border-radius:4px;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(520px circle at var(--gx,50%) var(--gy,50%),rgba(255,249,242,.16),transparent 46%)}
+  [data-tilt]:hover .tilt-glare{opacity:1}
+  .status-board{display:flex;flex-wrap:wrap;gap:10px;margin:30px 0 6px;max-width:720px}
+  .chip{display:inline-flex;align-items:center;gap:9px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:500;color:var(--navy-deep);background:var(--paper2);border:1px solid var(--line-soft);border-radius:999px;padding:9px 18px}
+  .chip .dot{width:8px;height:8px;border-radius:50%;flex:none}
+  .dot.live{background:#3E7C4F;box-shadow:0 0 0 3px rgba(62,124,79,.15);animation:blink 2.2s infinite}
+  .dot.pending{background:var(--accent);box-shadow:0 0 0 3px rgba(201,96,69,.15);animation:blink 2.2s infinite}
+  .dot.locked{background:#9a9587}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+  .plainly{list-style:none;margin-top:26px;max-width:720px}
+  .plainly li{padding:16px 4px;border-top:1px solid var(--line-soft);font-size:15.5px;color:var(--muted)}
+  .plainly li:last-child{border-bottom:1px solid var(--line-soft)}
+  .plainly strong{color:var(--navy-deep);font-weight:600}
+  .specimen{opacity:.55;filter:saturate(.6);pointer-events:none;user-select:none}
+  .specimen-note{text-align:center;color:var(--muted);font-style:italic;margin:18px 0 6px;font-size:15px}
+  .ref-banner{background:var(--navy-deep);color:#F3EDE0;text-align:center;font-size:13px;letter-spacing:.24em;text-transform:uppercase;padding:12px 16px}
+  .ref-banner b{color:var(--accent-hi)}
+  #walletsign-note{font-size:13.5px;color:var(--muted);font-style:italic;margin-top:10px;min-height:1.4em}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    .ticker-track{animation:none}
+    .dot.live,.dot.pending{animation:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <svg class="compass" viewBox="0 0 400 400" aria-hidden="true">
+    <g fill="none" stroke="currentColor">
+      <circle cx="200" cy="200" r="192" stroke-width="1"/>
+      <circle cx="200" cy="200" r="152" stroke-width="1"/>
+      <polygon points="200,14 214,200 200,386 186,200" fill="currentColor" stroke="none" opacity=".5"/>
+      <polygon points="14,200 200,186 386,200 200,214" fill="currentColor" stroke="none" opacity=".5"/>
+      <line x1="200" y1="48" x2="200" y2="8" stroke-width="1" transform="rotate(22.5 200 200)"/>
+      <line x1="200" y1="48" x2="200" y2="8" stroke-width="1" transform="rotate(67.5 200 200)"/>
+      <line x1="200" y1="48" x2="200" y2="8" stroke-width="1" transform="rotate(112.5 200 200)"/>
+      <line x1="200" y1="48" x2="200" y2="8" stroke-width="1" transform="rotate(157.5 200 200)"/>
+      <circle cx="200" cy="200" r="5" fill="currentColor" stroke="none"/>
+    </g>
+  </svg>
+  <div class="wrap">
+    <div class="eyebrow">Est. MMXXVI &nbsp;·&nbsp; 39°06′ N — 84°31′ W</div>
+    <div class="porthole"><img src="coin.webp" alt="The WAVY coin"></div>
+    <h1>Stay wavy, <em>baby.</em></h1>
+    <p class="sub">$WAVY is a community utility token on Base. Membership bestows entry to private marketplaces — and a life-operations service that turns real money goals into one confirmed action, with your consent, guardian rules, and allowlisted exits.</p>
+    <div class="ctas">
+      <a class="btn btn-primary" href="#crew">Join the Manifest</a>
+      <a class="btn btn-ghost" href="#how">The Chart</a>
+      <a class="btn btn-ghost" href="#particulars">Particulars</a>
+      <a class="btn btn-ghost" href="#store">Ship's Store</a>
+    </div>
+  </div>
+</header>
+
+<div class="ticker" aria-hidden="true"><div class="ticker-track" id="vticker"></div></div>
+
+<main class="wrap">
+
+  <section>
+    <div class="kicker">№ I — Privileges of the Society</div>
+    <h2>What membership <em>bestows.</em></h2>
+    <p class="sub">Two instruments of utility, held to the highest standard of care.</p>
+    <div class="grid">
+      <div class="card">
+        <div class="numeral">· I ·</div>
+        <h3>The Private Exchange</h3>
+        <p>Members-only marketplaces. Undiluted access — no feed, no noise. Only the Society.</p>
+      </div>
+      <div class="card">
+        <div class="numeral">· II ·</div>
+        <h3>The Life Ledger</h3>
+        <p>Link your funds, set a plain-English plan, confirm once. We execute the outcome — rent paid, orders placed — and issue a receipt.</p>
+      </div>
+      <div class="card">
+        <div class="numeral">· III ·</div>
+        <h3>The Standing Guard</h3>
+        <p>Guardian rules, allowlisted exits, no custody. Not a loan. Your money moves only where you permit.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="kicker">№ II — The Chart</div>
+    <h2>How a voyage <em>is plotted.</em></h2>
+    <div class="steps">
+      <div class="step"><div class="n">I.</div><div><h3>Chart the course</h3><p>Link your accounts and state your goal in plain English. The plan is drawn up for your review.</p></div></div>
+      <div class="step"><div class="n">II.</div><div><h3>Give the order</h3><p>One confirmation. Nothing sails without it — every sum, every destination, in the open.</p></div></div>
+      <div class="step"><div class="n">III.</div><div><h3>Make port</h3><p>We execute, then issue a receipt. A real outcome, on the record.</p></div></div>
+    </div>
+  </section>
+
+  <section id="crew">
+    <div class="kicker">№ III — The Manifest</div>
+    <h2>Sign the <em>manifest.</em></h2>
+    <p class="sub">Four marks. Complete them all to receive your Certificate of Membership — then strike your one-of-one Harbor Pass: nautical NFT artwork unique to your crew number. The press runs only during prelaunch — when the token launches, it closes forever.</p>
+    <div id="specimen-wrap">
+      <div class="ticket specimen">
+        <div class="seal"><img src="coin.webp" alt=""></div>
+        <div class="eyebrow">The Wavy Society</div>
+        <h3>Certificate of Membership</h3>
+        <div class="certifies">This certificate is blank.</div>
+        <div class="superlative" style="font-size:clamp(28px,5vw,40px)">— — —</div>
+        <div class="code">SPECIMEN</div>
+      </div>
+      <p class="specimen-note">This one is blank. Yours carries your vessel's name.</p>
+    </div>
+    <div class="progress"><div class="bar"><div class="fill" id="pfill"></div></div><p id="ptext">0 of 4 marks complete</p></div>
+    <div class="checklist">
+      <div class="check" id="step-like">
+        <div class="numeral">I.</div><div class="box">✓</div>
+        <div class="txt"><h3>Pay respects</h3><p>Like the launch post on X.</p></div>
+        <button class="go" data-act="like">Like ↗</button>
+      </div>
+      <div class="check" id="step-repost">
+        <div class="numeral">II.</div><div class="box">✓</div>
+        <div class="txt"><h3>Spread the word</h3><p>Repost the launch post for the fleet to see.</p></div>
+        <button class="go" data-act="repost">Repost ↗</button>
+      </div>
+      <div class="check" id="step-wallet">
+        <div class="numeral">III.</div><div class="box">✓</div>
+        <div class="txt"><h3>Declare your vessel</h3><p>Connect your Base wallet — your certificate is issued to it. No wallet handy? Paste the address instead.</p>
+          <div class="walletrow"><input id="walletinput" placeholder="0x…" spellcheck="false" autocomplete="off"><button class="go" id="walletconnect">Connect</button><button class="go" id="walletgo">Add</button></div>
+          <p id="walletsign-note" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+      <div class="check" id="step-telegram">
+        <div class="numeral">IV.</div><div class="box">✓</div>
+        <div class="txt"><h3>Join the crew</h3><p>Enter the Telegram where the Society gathers.</p></div>
+        <button class="go" data-act="telegram">Join ↗</button>
+      </div>
+    </div>
+    <div id="crew-card">
+      <div class="ticket">
+        <div class="seal"><img src="coin.webp" alt="WAVY seal"></div>
+        <div class="eyebrow">The Wavy Society</div>
+        <h3>Certificate of Membership</h3>
+        <div class="certifies">This certifies that the bearer of</div>
+        <div class="walletline" id="card-wallet" style="font-size:16px;color:#F3EDE0;font-weight:500">—</div>
+        <div class="certifies" style="margin-top:14px">sailed with the Society from the first tide,<br>and is hereby styled</div>
+        <div class="superlative" id="card-title">—</div>
+        <div class="code" id="card-code">—</div>
+        <div class="card-ctas">
+          <a class="btn btn-primary" id="share-x" href="#" target="_blank" rel="noopener">Share on X</a>
+          <button class="btn btn-ghost" id="strike-pass" style="color:#F3EDE0;border-color:rgba(232,144,124,.6)">Strike Harbor Pass</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="registry">
+    <div class="kicker">№ IV — The Registry</div>
+    <h2>Newly <em>inducted.</em></h2>
+    <p class="sub">A rolling roll of the Society's newest members, as their certificates are struck.</p>
+    <div class="marquee"><div class="mtrack" id="mtrack"></div></div>
+  </section>
+
+  <section id="store">
+    <div class="kicker">№ V — The Ship's Store</div>
+    <h2>The <em>ship's store.</em></h2>
+    <p class="sub">The first private marketplace — open now. Pay today at founder's pricing and save 20%, or reserve and pay at launch. Every order becomes a receipt in your locker, ready to sail into the life-ops dashboard the day it opens.</p>
+    <div class="presale-steps">
+      <div class="step"><div class="n">I.</div><div><h3>Pay now, save 20%</h3><p>Founder's pricing for those who back the voyage early — or reserve and pay at launch.</p></div></div>
+      <div class="step"><div class="n">II.</div><div><h3>We write at launch</h3><p>When $WAVY launches you get first word, with a private payment link.</p></div></div>
+      <div class="step"><div class="n">III.</div><div><h3>Pay &amp; receive</h3><p>Pay in $WAVY or by card. We make it fresh and ship it to your door.</p></div></div>
+    </div>
+    <div class="store-grid" id="store-grid"></div>
+    <p class="presale-note">Founder's pricing ends at launch — pay now by card or crypto and save 20%. Prefer to wait? Choose Reserve and we'll write to you.</p>
+  </section>
+
+  <section id="locker">
+    <div class="kicker">№ VI — The Ship's Locker</div>
+    <h2>Your <em>locker.</em></h2>
+    <p class="sub">Your reservations and gifts, kept in one manifest — on this device, under your wallet. When the life-ops dashboard launches, everything here comes with you: same wallet, same receipts.</p>
+    <div class="locker-list" id="locker-list"></div>
+  </section>
+
+  <section id="wall">
+    <div class="kicker">№ VII — The Founder's Wall</div>
+    <h2>Carved in <em>brass.</em></h2>
+    <p class="sub">Reserve your plaque on the Founder's Wall — your vessel's name engraved permanently, for all the Society to see. $25 at launch — or $20 founder's pricing if you pay now. Once engraved, always engraved.</p>
+    <div class="engrave-form">
+      <div class="rrow"><label>Your vessel's name</label><input id="e-vessel" maxlength="28" placeholder="e.g. S.S. Waverider" spellcheck="false" autocomplete="off"></div>
+      <div class="frow">
+        <div class="rrow"><label>Wallet</label><input id="e-wallet" placeholder="0x…" spellcheck="false" autocomplete="off"></div>
+        <div class="rrow"><label>Email</label><input id="e-email" type="email" placeholder="you@example.com"></div>
+      </div>
+      <div class="rrow"><label>Payment method</label>
+        <label class="payline"><input type="radio" name="e-pay" value="card" checked> Card</label>
+        <label class="payline"><input type="radio" name="e-pay" value="crypto"> Crypto</label>
+      </div>
+      <div id="e-crypto-panel" style="display:none"></div>
+      <button class="btn btn-primary" id="engrave-btn" style="width:100%">Engrave my plaque</button>
+      <p class="presale-note">Presale — no payment collected today. We'll write to you at launch.</p>
+      <div id="engrave-done"></div>
+    </div>
+    <div class="wall-grid" id="founders-wall"></div>
+  </section>
+
+  <section id="particulars">
+    <div class="kicker">№ VIII — Particulars</div>
+    <h2>The fine print, <em>in plain type.</em></h2>
+    <div class="status-board" id="vstatus"></div>
+    <div class="facts">
+      <div class="fact"><span class="k">Standard</span><span class="v">Bankr Doppler launch</span></div>
+      <div class="fact"><span class="k">Chain</span><span class="v">Base</span></div>
+      <div class="fact"><span class="k">Supply</span><span class="v">100,000,000,000 WAVY · fixed</span></div>
+      <div class="fact"><span class="k">Waters</span><span class="v">85% liquidity · 15% creator vesting (1 yr, 30-day cliff)</span></div>
+      <div class="fact"><span class="k">Treasury</span><span class="v">WAVY Treasury Safe</span></div>
+    </div>
+    <div class="warn">
+      <h3>A word of caution</h3>
+      <p>Nothing here is promised but the voyage itself. Verify every contract address before you act. Never share your seed phrase — the Society will never ask for it. Launching soon on Bankr.</p>
+    </div>
+    <ul class="plainly">
+      <li><strong>A pending certificate is not a balance.</strong> Your manifest marks, crew code, and Harbor Pass are reserved for you — they cannot be spent, transferred, or redeemed until the token launches.</li>
+      <li><strong>The token is not launched.</strong> $WAVY does not exist on-chain yet. Until launch there is no contract, no price, and no market — the real contract address will be published here first, and anywhere else is not $WAVY.</li>
+      <li><strong>The Life Ledger is a preview.</strong> The dashboard in the Chart isn't connected today and no money can move through it. When it opens, nothing sails without your confirmation.</li>
+    </ul>
+    <p style="margin-top:1rem;font-size:.9rem;"><a href="trust.html" style="color:var(--accent);">Read the Trust Center →</a> <span style="color:var(--muted);">capital flow, token status, and risks, in plain language.</span></p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="sig">Stay wavy, baby.</div>
+    <div class="trustnote">Certificates are pending and the token has not launched. A pending certificate is not a balance. Presale payments land in the Treasury Safe. Nothing here is financial advice.</div>
+    <nav class="trustnav"><a href="trust.html">Trust Center</a> · <a href="flow.html">Capital Flow</a> · <a href="trust.html#pending">What Pending Means</a> · <a href="token.html">Token Status</a> · <a href="trust.html#risks">Risks</a></nav>
+    <div>© MMXXVI The Wavy Society</div>
+    <div class="fine">Launching soon on Bankr</div>
+  </div>
+</footer>
+
+<div class="nft-modal" id="reserve-modal" aria-hidden="true">
+  <div class="nft-frame">
+    <button class="nft-close" id="reserve-close" aria-label="Close">✕</button>
+    <div id="reserve-body"></div>
+  </div>
+</div>
+
+<div class="nft-modal" id="nft-modal" aria-hidden="true">
+  <div class="nft-frame">
+    <button class="nft-close" id="nft-close" aria-label="Close">✕</button>
+    <div class="nft-rarity" id="nft-rarity"></div>
+    <img id="nft-img" alt="Your Harbor Pass">
+    <div class="nft-actions">
+      <button class="btn btn-primary" id="nft-dl-png" style="padding:12px 26px;font-size:13px">Download PNG</button>
+      <button class="btn btn-ghost" id="nft-dl-json" style="padding:12px 26px;font-size:13px">Metadata JSON</button>
+    </div>
+    <p class="nft-note">A one-of-one nautical collectible, generated unique to your crew number — about one strike in twelve comes up gilt. The press runs only during prelaunch; when the token launches, it closes forever. Keep the artwork and metadata — they're built to the ERC-721 standard, ready to mint and trade in the Society marketplace when it opens.</p>
+  </div>
+</div>
+
+<script>
+/* ============ PRE-LAUNCH CONFIG — paste your links here ============ */
+const WAVY_CONFIG = {
+  tweetUrl: "",    // e.g. "https://x.com/wavysociety/status/1234567890123456789"
+  telegramUrl: ""  // e.g. "https://t.me/wavysociety"
+};
+/* ================================================================== */
+const SUPERLATIVES = ["First Tide","Day-One Drifter","Tide Caller","Wave Whisperer","Certified Wavy","Undertow Royalty","High Tide Regular","Swellbringer"];
+let store = {};
+try { store = JSON.parse(localStorage.getItem("wavy_prelaunch_v1") || "{}"); } catch(e) { store = {}; }
+const state = { like: !!store.like, repost: !!store.repost, wallet: store.wallet || "", telegram: !!store.telegram };
+function save(){ try { localStorage.setItem("wavy_prelaunch_v1", JSON.stringify(state)); } catch(e){} }
+function tweetId(){ const m = (WAVY_CONFIG.tweetUrl || "").match(/status\/(\d+)/); return m ? m[1] : ""; }
+function hash(s){ let h = 5381; for (let i = 0; i < s.length; i++){ h = ((h << 5) + h + s.charCodeAt(i)) >>> 0; } return h; }
+function render(){
+  const keys = ["like","repost","wallet","telegram"];
+  const doneCount = keys.filter(k => k === "wallet" ? !!state.wallet : state[k]).length;
+  document.getElementById("pfill").style.width = (doneCount / 4 * 100) + "%";
+  document.getElementById("ptext").textContent = doneCount + " of 4 marks complete";
+  ["like","repost","telegram"].forEach(k => document.getElementById("step-" + k).classList.toggle("done", !!state[k]));
+  document.getElementById("step-wallet").classList.toggle("done", !!state.wallet);
+  const inp = document.getElementById("walletinput");
+  if (state.wallet && !inp.value) inp.value = state.wallet;
+  if (doneCount === 4 && state.wallet){
+    const w = state.wallet.toLowerCase();
+    const title = SUPERLATIVES[hash(w) % SUPERLATIVES.length];
+    const code = "MANIFEST № CREW-" + hash(w + "::code").toString(16).toUpperCase().padStart(8,"0").slice(0,6);
+    document.getElementById("card-title").textContent = title;
+    document.getElementById("card-wallet").textContent = state.wallet.slice(0,6) + "…" + state.wallet.slice(-4) + " · Base";
+    document.getElementById("card-code").textContent = code;
+    document.getElementById("share-x").href = "https://x.com/intent/tweet?text=" + encodeURIComponent("I'm " + title + " of the $WAVY pre-launch crew 🌊\nGet your certificate: https://wavysociety.pages.dev");
+    const card = document.getElementById("crew-card");
+    if (!card.classList.contains("show")){
+      card.classList.add("show");
+      setTimeout(() => card.scrollIntoView({behavior:"smooth", block:"center"}), 350);
+    }
+  }
+}
+document.querySelectorAll(".go[data-act]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const act = btn.dataset.act;
+    let url = "";
+    if (act === "like" || act === "repost"){
+      const id = tweetId();
+      if (!id){ alert("The launch post isn't live yet — check back soon."); return; }
+      url = "https://x.com/intent/" + (act === "like" ? "like" : "retweet") + "?tweet_id=" + id;
+    }
+    if (act === "telegram"){
+      if (!WAVY_CONFIG.telegramUrl){ alert("The Telegram opens soon — check back."); return; }
+      url = WAVY_CONFIG.telegramUrl;
+    }
+    window.open(url, "_blank", "noopener");
+    state[act] = true; save(); render();
+  });
+});
+document.getElementById("walletgo").addEventListener("click", () => {
+  const v = document.getElementById("walletinput").value.trim();
+  if (!/^0x[a-fA-F0-9]{40}$/.test(v)){ alert("That doesn't look like a Base/EVM wallet address (0x + 40 hex characters)."); return; }
+  state.wallet = v; save(); render();
+});
+(function(){
+  const track = document.getElementById("mtrack");
+  const samples = [
+    ["0x7F3a…9c21","a4f2c1"],["0xB82d…44ef","9d0b77"],["0x41c9…08ab","3e5f19"],["0xD0e4…7b3d","77aa02"],
+    ["0x95f1…c6d8","c14e9b"],["0x2b7e…19f0","5b83d4"],["0xE6a3…d2c7","e8f146"],["0x18bd…6e5a","2c9d58"]
+  ];
+  let html = "";
+  samples.forEach(([w, code], i) => {
+    html += '<div class="mcert"><div class="seal"><img src="coin.webp" alt=""></div>'
+      + '<div class="sname">' + SUPERLATIVES[i % SUPERLATIVES.length] + '</div>'
+      + '<div class="sw">' + w + ' · Base</div>'
+      + '<div class="sc">CREW-' + code.toUpperCase() + '</div></div>';
+  });
+  track.innerHTML = html + html; /* duplicated for a seamless loop */
+})();
+
+/* ============ Harbor Pass — generative nautical NFT artwork ============ */
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+async function strikePass(){
+  const w = state.wallet.toLowerCase();
+  const title = SUPERLATIVES[hash(w) % SUPERLATIVES.length];
+  const crew = "CREW-" + hash(w + "::code").toString(16).toUpperCase().padStart(8,"0").slice(0,6);
+  const gilt = hash(crew + "::rarity") % 12 === 0; /* about one strike in twelve comes up gilt */
+  const SA = gilt ? "216,178,106" : "232,144,124";
+  const SA_HI = gilt ? "#EFD08A" : "#E8907C";
+  const rnd = mulberry32(hash(crew));
+  const S = 1200, cv = document.createElement("canvas");
+  cv.width = cv.height = S;
+  const x = cv.getContext("2d");
+  /* night sea */
+  const g = x.createLinearGradient(0,0,0,S);
+  g.addColorStop(0,"#0E1738"); g.addColorStop(.6,"#0A1230"); g.addColorStop(1,"#060B22");
+  x.fillStyle = g; x.fillRect(0,0,S,S);
+  /* stars */
+  for (let i=0;i<150;i++){
+    x.globalAlpha = .12 + rnd()*.6;
+    x.fillStyle = "#F3EDE0";
+    x.beginPath(); x.arc(rnd()*S, rnd()*S*.62, .4 + rnd()*2.2, 0, 7); x.fill();
+  }
+  x.globalAlpha = 1;
+  /* compass rose */
+  const cx = S/2, cy = S*.42, R = S*.30;
+  x.strokeStyle = "rgba(" + SA + ",.38)"; x.lineWidth = 2;
+  x.beginPath(); x.arc(cx,cy,R,0,7); x.stroke();
+  x.beginPath(); x.arc(cx,cy,R*.72,0,7); x.stroke();
+  x.fillStyle = "rgba(" + SA + ",.30)";
+  for (let i=0;i<16;i++){
+    const a = i*Math.PI/8, len = (i%2 ? .5 : .95)*R;
+    x.save(); x.translate(cx,cy); x.rotate(a);
+    x.beginPath(); x.moveTo(0,-len); x.lineTo(R*.05,0); x.lineTo(0,len*.18); x.lineTo(-R*.05,0);
+    x.closePath(); x.fill(); x.restore();
+  }
+  x.fillStyle = "rgba(" + SA + ",.55)";
+  x.beginPath(); x.arc(cx,cy,8,0,7); x.fill();
+  /* waves */
+  const waveCols = ["rgba(" + SA + ",.30)","rgba(" + SA + ",.18)","rgba(243,237,224,.10)"];
+  for (let b=0;b<3;b++){
+    const yb = S*.74 + b*S*.07, amp = 26 + rnd()*30, ph = rnd()*7, fr = 2 + ((rnd()*2)|0);
+    x.fillStyle = waveCols[b]; x.beginPath(); x.moveTo(0,S);
+    for (let px=0; px<=S; px+=8) x.lineTo(px, yb + Math.sin(px/S*Math.PI*2*fr + ph)*amp);
+    x.lineTo(S,S); x.closePath(); x.fill();
+  }
+  /* frame */
+  x.strokeStyle = "rgba(243,237,224,.85)"; x.lineWidth = 3; x.strokeRect(36,36,S-72,S-72);
+  x.strokeStyle = "rgba(" + SA + ",.8)"; x.lineWidth = 2; x.strokeRect(52,52,S-104,S-104);
+  /* lettering */
+  x.textAlign = "center";
+  try {
+    await document.fonts.load('600 40px "Cormorant Garamond"');
+    await document.fonts.load('italic 700 100px "Cormorant Garamond"');
+    await document.fonts.load('500 34px Jost');
+  } catch(e){}
+  x.fillStyle = "rgba(" + SA + ",.95)";
+  x.font = '600 40px "Cormorant Garamond", Georgia, serif';
+  x.fillText("T H E   W A V Y   S O C I E T Y", cx, S*.155);
+  let fs = 104;
+  x.font = 'italic 700 ' + fs + 'px "Cormorant Garamond", Georgia, serif';
+  while (x.measureText(title).width > S-220 && fs > 40){ fs -= 6; x.font = 'italic 700 ' + fs + 'px "Cormorant Garamond", Georgia, serif'; }
+  x.fillStyle = "#F3EDE0";
+  x.fillText(title, cx, S*.60);
+  x.font = '500 34px Jost, sans-serif'; x.fillStyle = "rgba(243,237,224,.75)";
+  x.fillText(gilt ? "H A R B O R   P A S S   ·   G I L T" : "H A R B O R   P A S S", cx, S*.665);
+  x.font = '500 30px Jost, sans-serif'; x.fillStyle = SA_HI;
+  x.fillText(crew + " · 1 OF 1", cx, S*.715);
+  x.font = '400 26px Jost, sans-serif'; x.fillStyle = "rgba(243,237,224,.55)";
+  x.fillText(state.wallet.slice(0,6) + "…" + state.wallet.slice(-4) + " · Base", cx, S-100);
+  return { canvas: cv, title: title, crew: crew, gilt: gilt };
+}
+let lastPass = null;
+function dl(href, name){
+  const a = document.createElement("a");
+  a.href = href; a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+}
+document.getElementById("strike-pass").addEventListener("click", async () => {
+  const btn = document.getElementById("strike-pass");
+  btn.textContent = "Striking…"; btn.disabled = true;
+  try {
+    lastPass = await strikePass();
+    document.getElementById("nft-img").src = lastPass.canvas.toDataURL("image/png");
+    document.getElementById("nft-rarity").textContent = lastPass.gilt ? "Gilt edition · one strike in twelve · 1 of 1" : "Standard pressing · 1 of 1";
+    document.getElementById("nft-modal").classList.add("open");
+  } finally { btn.textContent = "Strike Harbor Pass"; btn.disabled = false; }
+});
+document.getElementById("nft-close").addEventListener("click", () => document.getElementById("nft-modal").classList.remove("open"));
+document.getElementById("nft-modal").addEventListener("click", e => { if (e.target.id === "nft-modal") e.target.classList.remove("open"); });
+document.getElementById("nft-dl-png").addEventListener("click", () => {
+  if (lastPass) dl(lastPass.canvas.toDataURL("image/png"), lastPass.crew + ".png");
+});
+document.getElementById("nft-dl-json").addEventListener("click", () => {
+  if (!lastPass) return;
+  const meta = {
+    name: "WAVY Harbor Pass — " + lastPass.crew,
+    description: "A one-of-one generative nautical collectible issued to a founding member of the Wavy Society. Unique to crew number " + lastPass.crew + ". Struck on the prelaunch press — when the token launches, the press closes forever.",
+    image: "ipfs://REPLACE_AT_MINT/" + lastPass.crew + ".png",
+    attributes: [
+      { trait_type: "Superlative", value: lastPass.title },
+      { trait_type: "Crew Number", value: lastPass.crew },
+      { trait_type: "Edition", value: "1 of 1" },
+      { trait_type: "Rarity", value: lastPass.gilt ? "Gilt" : "Standard" },
+      { trait_type: "Pressing", value: "Prelaunch" },
+      { trait_type: "Vessel", value: state.wallet },
+      { trait_type: "Chain", value: "Base" },
+      { trait_type: "Society", value: "The Wavy Society" },
+      { trait_type: "Status", value: "Pre-launch · mint-ready" }
+    ]
+  };
+  dl("data:application/json;charset=utf-8," + encodeURIComponent(JSON.stringify(meta, null, 2)), lastPass.crew + ".json");
+});
+
+/* ============ Ship's Store — presale, locker, life-ops data layer ============
+   Orders live under LIFEOPS_KEY in the receipt schema below. The future
+   life-ops dashboard reads this same key (then migrates it server-side).
+   Receipt schema:
+   { id, wallet, email, items:[{sku,name,price_usd,qty,gift,giftTo}],
+     total_usd, status, payMethod, txHash, crewCode, createdAt, source }
+============================================================================ */
+const LIFEOPS_KEY = "wavy_lifeops_v1";
+/* ============ Presale capture ============
+   Paste a Formspree/Basin endpoint and every reservation is also POSTed
+   to you as JSON. Local saving always happens first and never depends
+   on the network — the endpoint is a copy, not the source of truth.
+=============================================================== */
+const PRESALE_CONFIG = {
+  formEndpoint: "" // e.g. "https://formspree.io/f/abcdwxyz"
+};
+function submitReservation(payload){
+  if (!PRESALE_CONFIG.formEndpoint) return;
+  try {
+    fetch(PRESALE_CONFIG.formEndpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify(payload)
+    }).catch(() => {});
+  } catch(e){}
+}
+/* ============ Instant checkout ============
+   Paste a Stripe Payment Link per product to take payment NOW at
+   founder's pricing (20% off launch). Leave a product's link empty and
+   it stays reserve-only — so never paste a link for something you
+   cannot ship today.
+   Create links in Stripe Dashboard → Products → Payment Links.
+=============================================================== */
+const CHECKOUT = {
+  burgee: "",
+  compass: "",
+  tee: "",
+  seals: "",
+  plaque: ""
+};
+/* ============ Crypto checkout ============
+   Two ways to take crypto during presale (configure either or both):
+   - coinbase: hosted crypto-checkout links per product (Coinbase Commerce:
+     buyer can pay in BTC, ETH, USDC, etc., auto-verified).
+   - manual: take crypto direct to YOUR receiving wallet — paste it below.
+     Buyer sends the USD-equivalent and clicks "I've sent the payment";
+     you verify on-chain (Basescan) before shipping.
+=============================================================== */
+const CRYPTO = {
+  coinbase: { burgee:"", compass:"", tee:"", seals:"", plaque:"" },
+  manual: { label: "ETH or USDC on Base · WAVY Treasury", address: "0x594c0Bb58D103d5A603eeA62167A54095d939039" }
+};
+function canPayNow(sku){
+  return !!(CHECKOUT[sku] || ((CRYPTO.coinbase || {})[sku]) || CRYPTO.manual.address);
+}
+function cryptoPanelHTML(total, txId){
+  const m = CRYPTO.manual;
+  return '<div class="crypto-box"><p>Send <b>$' + total + '</b> worth of <b>' + esc(m.label) + '</b> to:</p>' +
+    '<div class="addr-row"><code>' + esc(m.address) + '</code><button type="button" class="copy-addr" data-addr="' + esc(m.address) + '">Copy</button></div>' +
+    '<div class="rrow" style="margin:14px 0 0"><label>Transaction hash (optional)</label><input id="' + txId + '" placeholder="0x…" spellcheck="false" autocomplete="off"></div>' +
+    '<p class="fine">We verify every payment on-chain before shipping. Send from the wallet you reserved with.</p></div>';
+}
+document.addEventListener("click", e => {
+  const b = e.target && e.target.closest ? e.target.closest(".copy-addr") : null;
+  if (b && navigator.clipboard) navigator.clipboard.writeText(b.dataset.addr).then(() => { b.textContent = "Copied"; }).catch(() => {});
+});
+
+const PRODUCTS = [
+  { sku:"burgee",  name:"The Society Burgee", desc:"Embroidered pennant, brass grommets. Fly it proudly.", launch:45, now:36, icon:"flag" },
+  { sku:"compass", name:"Brass Compass", desc:"Engraved with the Society rose. Never lose the tide.", launch:85, now:68, icon:"compass" },
+  { sku:"tee",     name:"Linen Tee", desc:"White linen, salmon embroidery. “Stay wavy, baby.”", launch:40, now:32, icon:"shirt" },
+  { sku:"seals",   name:"Wax Seal Pack", desc:"Twelve salmon wax seals, for letters worth opening.", launch:12, now:10, icon:"seal" }
+];
+const ICONS = {
+  flag:'<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 44V8"/><path d="M12 10h27l-7 8 7 8H12"/></svg>',
+  compass:'<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="16"/><path d="M31 17l-5 9-9 5 5-9z"/></svg>',
+  shirt:'<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 9L6 16l5 7 5-3v19h16V20l5 3 5-7-11-7a9 9 0 0 1-14 0z"/></svg>',
+  seal:'<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="14"/><path d="M17 20l4 9 3-7 3 7 4-9"/></svg>'
+};
+function loadLifeops(){
+  try { return JSON.parse(localStorage.getItem(LIFEOPS_KEY)) || { orders:[], profile:{} }; }
+  catch(e){ return { orders:[], profile:{} }; }
+}
+function saveLifeops(d){ try { localStorage.setItem(LIFEOPS_KEY, JSON.stringify(d)); } catch(e){} }
+function esc(s){ return String(s||"").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function crewCodeFor(wallet){
+  if (!wallet) return null;
+  return "CREW-" + hash(wallet.toLowerCase() + "::code").toString(16).toUpperCase().padStart(8,"0").slice(0,6);
+}
+function renderStore(){
+  const grid = document.getElementById("store-grid");
+  grid.innerHTML = PRODUCTS.map(p =>
+    '<div class="product"><div class="picon">' + ICONS[p.icon] + '</div>' +
+    '<h3>' + p.name + '</h3><p>' + p.desc + '</p>' +
+    '<div class="price">$' + p.now + ' <span>launch $' + p.launch + ' · save 20%</span></div>' +
+    '<button class="reserve" data-sku="' + p.sku + '">' + (canPayNow(p.sku) ? "Buy now" : "Reserve") + '</button></div>'
+  ).join("");
+  grid.querySelectorAll(".reserve").forEach(b => b.addEventListener("click", () => openReserve(b.dataset.sku)));
+}
+function renderLocker(){
+  const list = document.getElementById("locker-list");
+  const data = loadLifeops();
+  if (!data.orders.length){
+    list.innerHTML = '<div class="locker-empty"><span class="serif">The shelves are bare.</span>Reserve something from the Ship&rsquo;s Store and it will be logged here — then carried into your life-ops dashboard at launch.</div>';
+    return;
+  }
+  const orders = data.orders.slice().sort((a,b) => b.createdAt.localeCompare(a.createdAt));
+  list.innerHTML = orders.map(o => {
+    const items = o.items.map(it =>
+      it.qty + ' × ' + esc(it.name) + ' — $' + (it.price_usd * it.qty) +
+      (it.gift ? '<span class="gift-tag">Gift' + (it.giftTo ? ' · for ' + esc(it.giftTo) : '') + '</span>' : '')
+    ).join("<br>");
+    const when = new Date(o.createdAt).toLocaleDateString("en-US", { month:"short", day:"numeric", year:"numeric" });
+    return '<div class="order"><div class="ohead"><span class="oid">' + esc(o.id) + '</span>' +
+      '<span class="ostatus">' + esc(o.status) + '</span></div>' +
+      '<div class="oitems">' + items + '</div>' +
+      '<div class="ofoot">' + esc(o.wallet.slice(0,6)) + '…' + esc(o.wallet.slice(-4)) + ' · ' + esc(o.email) + ' · ' + when + ' · Total $' + o.total_usd + (o.payMethod ? ' · ' + esc(o.payMethod) : '') + '</div></div>';
+  }).join("");
+}
+function openReserve(sku){
+  const p = PRODUCTS.find(x => x.sku === sku);
+  if (!p) return;
+  const data = loadLifeops();
+  const body = document.getElementById("reserve-body");
+  body.innerHTML =
+    '<div class="kicker" style="margin-bottom:10px">Founder\u2019s pricing · save 20%</div>' +
+    '<h3 style="font-family:\'Cormorant Garamond\',serif;font-size:30px;color:var(--navy-deep);margin-bottom:4px">' + p.name + '</h3>' +
+    '<p style="color:var(--muted);font-size:14.5px;margin-bottom:22px">$' + p.now + ' pay now · <s>$' + p.launch + ' at launch</s> USD</p>' +
+    '<div class="rrow"><label>Quantity</label><select id="r-qty"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>' +
+    '<div class="rrow"><label>Wallet</label><input id="r-wallet" placeholder="0x…" spellcheck="false" autocomplete="off" value="' + esc(state.wallet || "") + '"></div>' +
+    '<div class="rrow"><label>Email</label><input id="r-email" type="email" placeholder="you@example.com" value="' + esc(data.profile.email || "") + '"></div>' +
+    '<div class="rrow"><label class="checkline"><input type="checkbox" id="r-gift"> Sending as a gift</label></div>' +
+    '<div class="rrow" id="r-giftto-row" style="display:none"><label>To (name or wallet)</label><input id="r-giftto" placeholder="For whom?"></div>' +
+    '<div class="rrow"><label>Payment method</label>' +
+      '<label class="payline"><input type="radio" name="r-pay" value="card" checked> Card</label>' +
+      '<label class="payline"><input type="radio" name="r-pay" value="crypto"> Crypto</label></div>' +
+    '<div id="r-crypto-panel" style="display:none"></div>' +
+    '<button class="btn btn-primary" id="r-confirm" style="width:100%"></button>';
+  document.getElementById("reserve-modal").classList.add("open");
+  function payMode(){
+    const m = document.querySelector('input[name="r-pay"]:checked').value;
+    if (m === "crypto"){
+      if ((CRYPTO.coinbase || {})[sku]) return "crypto-hosted";
+      if (CRYPTO.manual.address) return "crypto-manual";
+      return "crypto-soon";
+    }
+    return CHECKOUT[sku] ? "card-now" : "card-reserve";
+  }
+  function refreshPay(){
+    const md = payMode();
+    const btn = document.getElementById("r-confirm");
+    const panel = document.getElementById("r-crypto-panel");
+    const qty = parseInt(document.getElementById("r-qty").value, 10) || 1;
+    if (md === "crypto-manual"){
+      panel.style.display = "block";
+      panel.innerHTML = cryptoPanelHTML(p.now * qty, "r-tx");
+      btn.textContent = "I\u2019ve sent the payment";
+    } else {
+      panel.style.display = "none";
+      panel.innerHTML = "";
+      btn.textContent =
+        md === "card-now" ? "Continue to payment →" :
+        md === "crypto-hosted" ? "Continue to crypto checkout →" :
+        "Confirm reservation";
+    }
+  }
+  document.querySelectorAll('input[name="r-pay"]').forEach(r => r.addEventListener("change", refreshPay));
+  document.getElementById("r-qty").addEventListener("change", refreshPay);
+  refreshPay();
+  document.getElementById("r-gift").addEventListener("change", e => {
+    document.getElementById("r-giftto-row").style.display = e.target.checked ? "block" : "none";
+  });
+  document.getElementById("r-confirm").addEventListener("click", () => {
+    const qty = parseInt(document.getElementById("r-qty").value, 10) || 1;
+    const wallet = document.getElementById("r-wallet").value.trim();
+    const email = document.getElementById("r-email").value.trim();
+    const gift = document.getElementById("r-gift").checked;
+    const giftTo = gift ? document.getElementById("r-giftto").value.trim() : "";
+    if (!/^0x[a-fA-F0-9]{40}$/.test(wallet)){ alert("That doesn't look like a Base/EVM wallet address (0x + 40 hex characters)."); return; }
+    if (!/.+@.+\..+/.test(email)){ alert("Please enter a valid email so we can reach you at launch."); return; }
+    const md = payMode();
+    const txEl = document.getElementById("r-tx");
+    const tx = (md === "crypto-manual" && txEl) ? txEl.value.trim() : "";
+    const payNow = (md !== "card-reserve" && md !== "crypto-soon");
+    const unit = payNow ? p.now : p.launch;
+    const d = loadLifeops();
+    const order = {
+      id: "WS-" + hash(wallet + "|" + Date.now() + "|" + Math.random()).toString(16).toUpperCase().padStart(8,"0").slice(0,6),
+      wallet: wallet, email: email,
+      items: [{ sku:p.sku, name:p.name, price_usd:unit, qty:qty, gift:gift, giftTo:giftTo }],
+      total_usd: unit * qty, status: payNow ? "awaiting-payment" : "reserved",
+      payMethod: md.indexOf("crypto") === 0 ? "crypto" : "card",
+      txHash: tx,
+      crewCode: crewCodeFor(wallet),
+      createdAt: new Date().toISOString(), source: "wavy-site presale"
+    };
+    d.orders.push(order);
+    d.profile.email = email;
+    if (!d.profile.wallet) d.profile.wallet = wallet;
+    saveLifeops(d);
+    submitReservation(Object.assign({ kind: "store-order" }, order));
+    if (md === "card-now") window.open(CHECKOUT[sku], "_blank", "noopener");
+    if (md === "crypto-hosted") window.open(CRYPTO.coinbase[sku], "_blank", "noopener");
+    renderLocker();
+    body.innerHTML =
+      '<div class="kicker" style="margin-bottom:10px">Receipt</div>' +
+      '<div class="receipt-big">' + esc(order.id) + '</div>' +
+      '<p style="color:var(--muted);font-size:15px;margin-bottom:6px">' + qty + ' × ' + p.name + ' — $' + order.total_usd + ' USD</p>' +
+      '<p style="color:var(--muted);font-size:14px;margin-bottom:22px">Reserved under ' + esc(wallet.slice(0,6)) + '…' + esc(wallet.slice(-4)) + '. ' +
+      (md === "card-now" ? 'Complete your card payment in the checkout tab — your goods ship once it clears.' :
+       md === "crypto-hosted" ? 'Complete your crypto payment in the checkout tab — we verify on-chain before shipping.' :
+       md === "crypto-manual" ? 'We\u2019ll verify your transaction on-chain, then ship. Keep this receipt.' :
+       'No payment taken — we&rsquo;ll write to ' + esc(email) + ' at launch.') +
+      (gift ? ' Marked as a gift' + (giftTo ? ' for ' + esc(giftTo) : '') + '.' : '') + '<br>' +
+      'It&rsquo;s now in your Ship&rsquo;s Locker, and will sail into the life-ops dashboard with you.</p>' +
+      '<button class="btn btn-ghost" id="r-done" style="width:100%">Back to the store</button>';
+    document.getElementById("r-done").addEventListener("click", () => document.getElementById("reserve-modal").classList.remove("open"));
+  });
+}
+document.getElementById("reserve-close").addEventListener("click", () => document.getElementById("reserve-modal").classList.remove("open"));
+document.getElementById("reserve-modal").addEventListener("click", e => { if (e.target.id === "reserve-modal") e.target.classList.remove("open"); });
+/* ============ Founder's Wall ============
+   Plaques are stored as orders (sku "founders-plaque") in the same
+   life-ops data layer, so the Ship's Locker shows them automatically.
+=============================================================== */
+const CHARTER_FLEET = [
+  { name:"S.S. Aurelia", code:"CHARTER-01" },
+  { name:"The Gilded Wake", code:"CHARTER-02" },
+  { name:"M.S. Halcyon", code:"CHARTER-03" },
+  { name:"S.S. Lumen", code:"CHARTER-04" },
+  { name:"Vela", code:"CHARTER-05" },
+  { name:"The Coral Meridian", code:"CHARTER-06" }
+];
+function plaqueHTML(name, code, kind){
+  return '<div class="plaque"><div class="rivets"></div><div class="pname">' + esc(name) + '</div>' +
+    '<div class="pcode">' + esc(code) + '</div><div class="pkind">' + kind + ' · Est. MMXXVI</div></div>';
+}
+function renderWall(){
+  const wall = document.getElementById("founders-wall");
+  const data = loadLifeops();
+  const mine = [];
+  data.orders.forEach(o => o.items.forEach(it => {
+    if (it.sku === "founders-plaque") mine.push({ name: it.vesselName || "Unnamed Vessel", code: o.crewCode || "CREW-??????" });
+  }));
+  wall.innerHTML =
+    mine.map(p => plaqueHTML(p.name, p.code, "Founder")).join("") +
+    CHARTER_FLEET.map(c => plaqueHTML(c.name, c.code, "Charter")).join("");
+}
+function initWallForm(){
+  const data = loadLifeops();
+  if (state.wallet) document.getElementById("e-wallet").value = state.wallet;
+  if (data.profile.email) document.getElementById("e-email").value = data.profile.email;
+  function wallMode(){
+    const m = document.querySelector('input[name="e-pay"]:checked').value;
+    if (m === "crypto"){
+      if ((CRYPTO.coinbase || {}).plaque) return "crypto-hosted";
+      if (CRYPTO.manual.address) return "crypto-manual";
+      return "crypto-soon";
+    }
+    return CHECKOUT.plaque ? "card-now" : "card-reserve";
+  }
+  function refreshWall(){
+    const md = wallMode();
+    const btn = document.getElementById("engrave-btn");
+    const panel = document.getElementById("e-crypto-panel");
+    if (md === "crypto-manual"){
+      panel.style.display = "block";
+      panel.innerHTML = cryptoPanelHTML(20, "e-tx");
+      btn.textContent = "I\u2019ve sent the payment — engrave";
+    } else {
+      panel.style.display = "none";
+      panel.innerHTML = "";
+      btn.textContent =
+        md === "card-now" ? "Engrave my plaque — pay $20 now" :
+        md === "crypto-hosted" ? "Engrave — continue to crypto checkout" :
+        "Engrave my plaque — $25 reserve";
+    }
+  }
+  document.querySelectorAll('input[name="e-pay"]').forEach(r => r.addEventListener("change", refreshWall));
+  refreshWall();
+  document.getElementById("engrave-btn").addEventListener("click", () => {
+    const vessel = document.getElementById("e-vessel").value.trim();
+    const wallet = document.getElementById("e-wallet").value.trim();
+    const email = document.getElementById("e-email").value.trim();
+    if (vessel.length < 2 || vessel.length > 28){ alert("Give your vessel a name between 2 and 28 characters."); return; }
+    if (!/^0x[a-fA-F0-9]{40}$/.test(wallet)){ alert("That doesn't look like a Base/EVM wallet address (0x + 40 hex characters)."); return; }
+    if (!/.+@.+\..+/.test(email)){ alert("Please enter a valid email so we can reach you at launch."); return; }
+    const md = wallMode();
+    const txEl = document.getElementById("e-tx");
+    const tx = (md === "crypto-manual" && txEl) ? txEl.value.trim() : "";
+    const payNow = (md !== "card-reserve" && md !== "crypto-soon");
+    const unit = payNow ? 20 : 25;
+    const d = loadLifeops();
+    const order = {
+      id: "FW-" + hash(wallet + "|" + vessel + "|" + Date.now()).toString(16).toUpperCase().padStart(8,"0").slice(0,6),
+      wallet: wallet, email: email,
+      items: [{ sku:"founders-plaque", name:"Founder's Wall Plaque", price_usd:unit, qty:1, gift:false, giftTo:"", vesselName: vessel }],
+      total_usd: unit, status: payNow ? "awaiting-payment" : "reserved",
+      payMethod: md.indexOf("crypto") === 0 ? "crypto" : "card",
+      txHash: tx,
+      crewCode: crewCodeFor(wallet),
+      createdAt: new Date().toISOString(), source: "wavy-site presale"
+    };
+    d.orders.push(order);
+    d.profile.email = email;
+    if (!d.profile.wallet) d.profile.wallet = wallet;
+    saveLifeops(d);
+    submitReservation(Object.assign({ kind: "wall-order" }, order));
+    if (md === "card-now") window.open(CHECKOUT.plaque, "_blank", "noopener");
+    if (md === "crypto-hosted") window.open(CRYPTO.coinbase.plaque, "_blank", "noopener");
+    renderWall();
+    renderLocker();
+    document.getElementById("e-vessel").value = "";
+    const doneMsg =
+      md === "card-now" ? "Complete payment in the checkout tab; your plaque is permanent either way." :
+      md === "crypto-hosted" ? "Complete your crypto payment in the checkout tab — we verify on-chain." :
+      md === "crypto-manual" ? "We\u2019ll verify your transaction on-chain. Your plaque is permanent." :
+      "It now hangs on the wall, sits in your locker, and sails into the life-ops dashboard at launch.";
+    document.getElementById("engrave-done").textContent =
+      "“" + vessel + "” is engraved — receipt " + order.id + ". " + doneMsg;
+  });
+}
+renderStore();
+renderLocker();
+initWallForm();
+renderWall();
+render();
+</script>
+<script src="status.js"></script>
+<script>
+/* ===== Slickness kit (no backend): status, motion, wallet, referrals ===== */
+(function(){
+  "use strict";
+  /* --- status: single source of truth (see status.js) --- */
+  var STATUS = window.WAVY_STATUS || [];
+  var board = document.getElementById("vstatus");
+  if (board) board.innerHTML = STATUS.map(function(s){
+    return '<span class="chip"><span class="dot ' + s.state + '"></span>' + s.label + " · " + s.text + "</span>";
+  }).join("");
+
+  /* --- motion: scroll reveals --- */
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var rEls = document.querySelectorAll("main section, .card, .product, .plaque");
+  if (reduce || !("IntersectionObserver" in window)) {
+    Array.prototype.forEach.call(rEls, function(n){ n.classList.add("in"); });
+  } else {
+    Array.prototype.forEach.call(rEls, function(n){ n.classList.add("reveal"); });
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { threshold: 0.06 });
+    Array.prototype.forEach.call(rEls, function(n){ io.observe(n); });
+  }
+
+  /* --- ticker --- */
+  var items = ["Stay wavy, baby", "The press runs only during prelaunch", "Membership is open", "Nothing here is promised but the voyage itself", "Verify every contract address"];
+  var half = items.map(function(t){ return "<span>" + t + " <b>·</b></span>"; }).join("");
+  var vt = document.getElementById("vticker");
+  if (vt) vt.innerHTML = half + half;
+
+  /* --- 3D tilt on certificates --- */
+  function armTilt(ticket){
+    if (!ticket || ticket.__tilt) return; ticket.__tilt = true;
+    ticket.setAttribute("data-tilt", "");
+    var glare = document.createElement("div"); glare.className = "tilt-glare"; ticket.appendChild(glare);
+    ticket.addEventListener("pointermove", tilt);
+    ticket.addEventListener("mousemove", tilt); /* fallback: some automation/synthetic input only fires mouse events */
+    function tilt(ev){
+      var r = ticket.getBoundingClientRect();
+      var px = (ev.clientX - r.left) / r.width, py = (ev.clientY - r.top) / r.height;
+      ticket.style.transform = "rotateX(" + ((0.5 - py) * 8).toFixed(2) + "deg) rotateY(" + ((px - 0.5) * 10).toFixed(2) + "deg)";
+      ticket.style.setProperty("--gx", (px * 100).toFixed(1) + "%");
+      ticket.style.setProperty("--gy", (py * 100).toFixed(1) + "%");
+    }
+    ticket.addEventListener("pointerleave", function(){ ticket.style.transform = ""; });
+  }
+  Array.prototype.forEach.call(document.querySelectorAll("#specimen-wrap .ticket"), armTilt);
+  var crewCard = document.getElementById("crew-card");
+  if (crewCard) {
+    new MutationObserver(function(){
+      if (crewCard.classList.contains("show")) {
+        Array.prototype.forEach.call(crewCard.querySelectorAll(".ticket"), armTilt);
+        var sp = document.getElementById("specimen-wrap");
+        if (sp) sp.style.display = "none";
+      }
+    }).observe(crewCard, { attributes: true, attributeFilter: ["class"] });
+    if (crewCard.classList.contains("show")) {
+      Array.prototype.forEach.call(crewCard.querySelectorAll(".ticket"), armTilt);
+      var sp0 = document.getElementById("specimen-wrap");
+      if (sp0) sp0.style.display = "none";
+    }
+  }
+
+  /* --- referral arrival (?ref=CREW-XXXXXX) --- */
+  var ref = new URLSearchParams(window.location.search).get("ref");
+  if (ref) {
+    var b = document.createElement("div");
+    b.className = "ref-banner";
+    b.innerHTML = "You sailed in on <b>" + ref.replace(/[<>&"]/g, "") + "</b>'s tide.";
+    var hero = document.querySelector("header.hero");
+    if (hero) hero.after(b);
+  }
+  /* carry the crew code on the X share link (existing render() sets its href) */
+  document.addEventListener("click", function(e){
+    var a = e.target.closest && e.target.closest("#share-x");
+    if (a && window.__wavyCode && a.href.indexOf(window.__wavyCode) === -1) {
+      try {
+        var u = new URL(a.href);
+        var t = u.searchParams.get("text") || "";
+        t = t.replace("https://wavysociety.pages.dev", "https://wavysociety.pages.dev?ref=" + window.__wavyCode);
+        u.searchParams.set("text", t);
+        a.href = u.toString();
+      } catch(err){}
+    }
+  }, true);
+
+  /* --- wallet connect + signature for manifest step III --- */
+  var BASE = "0x2105";
+  var wcBtn = document.getElementById("walletconnect");
+  var note = document.getElementById("walletsign-note");
+  function declareVessel(addr, sig){
+    state.wallet = addr;
+    if (sig) state.walletSig = sig;
+    save();
+    try { window.__wavyCode = crewCodeFor(addr); } catch(e){ window.__wavyCode = null; }
+    render();
+    if (note) note.textContent = sig
+      ? "Vessel declared and signed — this wallet is proven yours."
+      : "Vessel declared. (Signature skipped — connect again to sign.)";
+  }
+  if (wcBtn) wcBtn.addEventListener("click", function(){
+    var eth = window.ethereum;
+    if (!eth) { if (note) note.textContent = "No wallet found — open this page in your wallet's dApp browser, or paste your address and press Add."; return; }
+    wcBtn.disabled = true; wcBtn.textContent = "…";
+    eth.request({ method: "eth_requestAccounts" }).then(function(accounts){
+      var addr = accounts[0];
+      return eth.request({ method: "eth_chainId" }).then(function(chainId){
+        if (chainId !== BASE) {
+          return eth.request({ method: "wallet_switchEthereumChain", params: [{ chainId: BASE }] })
+            .catch(function(){ throw new Error("switch"); });
+        }
+      }).then(function(){
+        var msg = "Wavy Society manifest — I declare this vessel: " + addr.toLowerCase();
+        var hex = "0x" + Array.prototype.map.call(msg, function(c){ return c.charCodeAt(0).toString(16).padStart(2, "0"); }).join("");
+        return eth.request({ method: "personal_sign", params: [hex, addr] })
+          .then(function(sig){ return { addr: addr, sig: sig }; })
+          .catch(function(){ return { addr: addr, sig: null }; });
+      });
+    }).then(function(r){
+      declareVessel(r.addr, r.sig);
+      wcBtn.textContent = "Connected ✓";
+    }).catch(function(err){
+      if (note) note.textContent = (err && err.message === "switch")
+        ? "Please switch your wallet to the Base network."
+        : "Connection declined — no harm done.";
+      wcBtn.disabled = false; wcBtn.textContent = "Connect";
+    });
+  });
+})();
+</script>
+</body>
+</html>
